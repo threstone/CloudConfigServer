@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "removeComments": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "types": [
+      "node"
+    ],
+    "outDir": "dist/",
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "**/*.ts",
+    "./config/*.json",
+    "index.ts"
+  ],
+  "exclude": [
+    "./node_modules/",
+    "**/dist"
+  ]
+}

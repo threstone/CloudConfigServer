@@ -1,0 +1,34 @@
+{
+  "name": "cc",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc",
+    "start": "node -r source-map-support/register ./dist/src/bin/main.js"
+  },
+  "author": "author",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/multer": "^3.0.2",
+    "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^12.0.0",
+    "koa-static": "^5.0.0",
+    "log4js": "^6.3.0",
+    "multer": "^1.4.5-lts.1",
+    "source-map-support": "^0.5.21",
+    "xlsx-populate": "^1.21.0"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.13.9",
+    "@types/koa-bodyparser": "^4.3.10",
+    "@types/koa-router": "^7.4.5",
+    "@types/node": "^14.18.36",
+    "@typescript-eslint/eslint-plugin": "^4.5.0",
+    "@typescript-eslint/parser": "^4.5.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "typescript": "^4.4.4"
+  }
+}

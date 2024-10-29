@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Excel Files</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="file"] {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        #uploadResult {
+            margin-top: 20px;
+        }
+
+        #uploadResult h2 {
+            color: #3c763d;
+        }
+
+        #uploadResult ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #uploadResult li {
+            background-color: #dff0d8;
+            color: #3c763d;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+
+        #uploadResult p {
+            color: #a94442;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h3>请选择一个游戏 </h3>
+        <select id="gameSelector"></select>
+
+        <h2>创建游戏</h2>
+        <input id="createGameInput"></input>
+        <button type="createGame" id="createGame">创建</button>
+        <div id="createResLable"></div>
+
+        <h1>上传配置表</h1>
+
+        <form id="uploadForm" enctype="multipart/form-data">
+            <label for="files">Choose Excel files (.xlsx):</label>
+            <input type="file" id="files" name="files" multiple accept=".xlsx">
+            <button type="submit">上传配置</button>
+            <button type="clearConfig" id="clearConfig">清空所选游戏配置</button>
+        </form>
+        <div id="uploadResult"></div>
+    </div>
+
+    <script src="gameSelector.js"></script>
+    <script src="upload.js"></script>
+</body>
+
+</html>

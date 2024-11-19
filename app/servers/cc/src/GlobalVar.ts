@@ -1,8 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { configure, getLogger } from 'log4js';
 import { ConfigServer } from './ConfigServer';
-import * as log4jsConfig from '../config/log4js.json';
 import * as serverConfig from '../config/server.json';
 import { GameMgr } from './GameMgr';
 
@@ -12,9 +10,6 @@ export class GlobalVar {
     static gameMgr: GameMgr;
 
     static init() {
-        configure(log4jsConfig);
-        global.logger = getLogger();
-
         this.gameMgr = new GameMgr();
 
         this.server = new ConfigServer(serverConfig.port);

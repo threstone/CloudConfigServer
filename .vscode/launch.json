@@ -5,14 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
+            "command": "npm run updateRpcDesc",
+            "name": "生成并更新rpc类型描述文件",
             "request": "launch",
-            "name": "光启动不编译",
-            "args": [
-                "-r",
-                "source-map-support/register",
-                "./dist/src/bin/main.js"
-            ]
-        }
+            "type": "node-terminal"
+          },
+          {
+            "command": "npm test",
+            "name": "npm test",
+            "request": "launch",
+            "type": "node-terminal"
+          },
+          {
+            "command": "npm run start_dev",
+            "name": "npm run start_dev",
+            "request": "launch",
+            "type": "node-terminal"
+          }
     ]
 }

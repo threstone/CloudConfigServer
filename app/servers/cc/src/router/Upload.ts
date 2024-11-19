@@ -5,7 +5,7 @@ import * as multer from '@koa/multer';
 import { GlobalVar } from '../GlobalVar';
 import { gen } from '../excel/index';
 
-const excelPath = path.join(__dirname, '../../../resource/');
+const excelPath = path.join(process.cwd(), './resource/');
 if (!fs.existsSync(excelPath)) {
     fs.mkdirSync(excelPath);
 }

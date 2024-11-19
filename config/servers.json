@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "master": {
+            "ip": "127.0.0.1",
+            "port": 10100,
+            "rpcPorts": [
+                10101
+            ],
+            "isCreateRpcDeclare": true
+        },
+        "cc": [
+            {
+                "nodeId": "cc1",
+                "autuResume": true,
+                "logTrace": true,
+                "logLevel": "all"
+            }
+        ]
+    }
+}

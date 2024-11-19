@@ -7,7 +7,7 @@ let serverConfigOutputPath;
 let clientConfigOutputPath;
 
 export async function gen(excelPath, gameName, files) {
-    const targetDir = path.join(__dirname, `../../../public/${gameName}`);
+    const targetDir = path.join(process.cwd(), `./public/${gameName}`);
     await mkdirIfNotExist(targetDir);
     serverConfigOutputPath = path.join(targetDir, '/server/');
     clientConfigOutputPath = path.join(targetDir, '/client/');

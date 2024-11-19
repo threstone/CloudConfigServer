@@ -14,7 +14,7 @@ export class ConfigServer {
         app.use(this.addCrossOrigin.bind(this));
         app.use(BodyParser());
         app.use(router.routes()).use(router.allowedMethods());
-        app.use(KoaStatic(path.join(__dirname, '../../public')));
+        app.use(KoaStatic(path.join(process.cwd(), './public')));
 
         this._router = router;
         app.listen(port, () => {

@@ -5,7 +5,7 @@ export class GameMgr {
     games: string[];
 
     constructor() {
-        const gameFilePath = path.join(__dirname, '../../public/game.json');
+        const gameFilePath = path.join(process.cwd(), './public/game.json');
         if (fs.existsSync(gameFilePath)) {
             this.games = JSON.parse(fs.readFileSync(gameFilePath, 'utf8'));
         } else {
@@ -18,7 +18,7 @@ export class GameMgr {
             return false;
         }
         this.games.push(gameName);
-        const gameFilePath = path.join(__dirname, '../../public/game.json');
+        const gameFilePath = path.join(process.cwd(), './public/game.json');
         fs.writeFileSync(gameFilePath, JSON.stringify(this.games), { flag: 'w' });
         return true;
     }

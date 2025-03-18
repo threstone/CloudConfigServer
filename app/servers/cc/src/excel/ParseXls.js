@@ -2,9 +2,9 @@ module.exports = {
     _handObjArray(value, varName, configName) {
         if (!value) {
             // console.log(varName, configName)
-            return {value: null, isArray: true, type: "any[]"};
+            return { value: null, isArray: true, type: "any[]" };
         }
-        let realvalue = value.replace(/[ \[\]]+/g, '');
+        let realvalue = value.replace(/^\[|\]$/g, '');
         let star = 0;
         let count = 0;
         let arr = [];
@@ -23,7 +23,7 @@ module.exports = {
                 }
             }
         }
-        return {value: arr, isArray: true, type: "any[]"};
+        return { value: arr, isArray: true, type: "any[]" };
     },
     _handleSingleObjValue(realvalue) {
         let star = 0;
@@ -50,11 +50,14 @@ module.exports = {
         let splitstr = [];
         let countObj = 0;
         let start = 0;
+        let countArray = 0;
         for (let i = 0; i < objstr.length; i++) {
             let key = objstr.charAt(i);
             if (key == "{") countObj++;
             if (key == "}") countObj--;
-            if (key == "," && countObj == 0) {
+            if (key == "[") countArray++;
+            if (key == "]") countArray--;
+            if (key == "," && countObj == 0 && countArray == 0) {
                 splitstr.push(objstr.substring(start, i));
                 start = i + 1;
             }
@@ -70,18 +73,23 @@ module.exports = {
             if (v.startsWith("{")) {
                 obj[splitobj[0]] = this._handleSingleObjValue(v);
             } else {
-                if (v.indexOf(".") >= 0) {
+                if (v.startsWith('"')) {
+                    obj[splitobj[0]] = v.substring(1, v.length - 1);
+                } else if (v.indexOf(".") >= 0) {
                     obj[splitobj[0]] = parseFloat(v);
-                } else {
+                } else if (v.indexOf("[") >= 0) {
+                    obj[splitobj[0]] = JSON.parse(v);
+                }
+                else {
                     obj[splitobj[0]] = parseInt(v);
                 }
             }
         }
-        return {value: obj, isArray: false, type: "any"};
+        return { value: obj, isArray: false, type: "any" };
     },
     parse: function (defaultValueFlg, value, type, varName, configName) {
         if (!type) {
-            return {value: value, isArray: false, type: "any"};
+            return { value: value, isArray: false, type: "any" };
         }
         let isMust = type.indexOf("?") < 0; //是否必选
         let isArray = type.indexOf("[]") >= 0; //是否是数组
@@ -255,7 +263,7 @@ module.exports = {
                 console.log(configName, value, typeof value, varName)
             }
         }
-        return {value: value, isArray: isArray, type: type};
+        return { value: value, isArray: isArray, type: type };
     },
     //检测string 数组的对象格式
     checkStringArray(value) {
@@ -291,7 +299,7 @@ module.exports = {
             case "number":
                 type = 'int32';
                 break;
-            default :
+            default:
                 type = 'string';
                 break
         }

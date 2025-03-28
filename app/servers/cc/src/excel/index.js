@@ -82,6 +82,8 @@ async function writeSheet(sheetName, config) {
                 isS: config.csList[index].indexOf('s') !== -1
             }
         }
+
+        let vIndex = 0;
         for (const key in config.dataList) {
             const value = config.dataList[key];
             if (isNaN(value.id)) { continue; }
@@ -104,11 +106,12 @@ async function writeSheet(sheetName, config) {
             }
 
             if (hasC) {
-                c[key] = tempC;
+                c[vIndex] = tempC;
             }
             if (hasS) {
-                s[key] = tempS;
+                s[vIndex] = tempS;
             }
+            vIndex += 1;
         }
     }
     await fs.writeFile(path.join(serverConfigOutputPath, sheetName + '.json'), stringify(s, { indent: 2, maxLength: 260 }));

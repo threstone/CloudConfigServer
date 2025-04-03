@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as Router from 'koa-router';
 import * as BodyParser from 'koa-bodyparser';
 import * as KoaStatic from 'koa-static';
+import * as Compress from 'koa-compress';
 
 export class ConfigServer {
     private _router: Router;
@@ -14,6 +15,7 @@ export class ConfigServer {
         app.use(this.addCrossOrigin.bind(this));
         app.use(BodyParser());
         app.use(router.routes()).use(router.allowedMethods());
+        app.use(Compress());
         app.use(KoaStatic(path.join(process.cwd(), './public')));
 
         this._router = router;

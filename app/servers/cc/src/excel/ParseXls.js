@@ -160,6 +160,7 @@ module.exports = {
                     isNull = false;
                 }
                 break;
+            case "number":
             case "float":
             case "double":
                 isFloat = true;
@@ -186,7 +187,6 @@ module.exports = {
             case "int64":
             case "sint64":
             case "uint64":
-            case "number":
                 isInt = true;
                 type = "number";
                 if (isArray) {
@@ -297,7 +297,7 @@ module.exports = {
                 break;
             case "int":
             case "number":
-                type = 'int32';
+                type = 'double';
                 break;
             default:
                 type = 'string';

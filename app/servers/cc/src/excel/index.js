@@ -99,7 +99,8 @@ async function writeSheet(sheetName, config) {
                     tempC[keyOfObj] = value[keyOfObj];
                     hasC = true;
                 }
-                if (csData.isS) {
+                // 服务端需要所有配置,因为服务端计算战力的时候需要用到客户端配置
+                if (csData.isC || csData.isS) {
                     tempS[keyOfObj] = value[keyOfObj];
                     hasS = true;
                 }

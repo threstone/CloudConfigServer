@@ -2,9 +2,9 @@
     "dev": {
         "master": {
             "ip": "127.0.0.1",
-            "port": 10100,
+            "port": 10101,
             "rpcPorts": [
-                10101
+                10111
             ],
             "isCreateRpcDeclare": true
         },

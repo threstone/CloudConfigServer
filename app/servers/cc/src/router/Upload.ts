@@ -45,6 +45,7 @@ async function uploadFiles(ctx: Koa.Context) {
         ctx.body = { success: false, error: 'No file uploaded.' };
     }
     await gen(path.join(excelPath, game, '/'), game, files);
+    GlobalVar.gameMgr.notifyServer(game);
 }
 
 async function deleteAll(ctx: Koa.Context) {
@@ -54,9 +55,14 @@ async function deleteAll(ctx: Koa.Context) {
         return;
     }
     logger.info('清空游戏配置', game);
-    fs.rmSync(path.join(excelPath, game, '/'), { recursive: true });
-    fs.rmSync(path.join(__dirname, `../../../public/${game}`), { recursive: true });
+    try {
+        fs.rmSync(path.join(excelPath, game, '/'), { recursive: true });
+        fs.rmSync(path.join(process.cwd(), `./public/${game}`), { recursive: true });
+    } catch (error) {
+        logger.error(error);
+    }
     ctx.body = { success: true };
+    GlobalVar.gameMgr.notifyServer(game);
 }
 
 GlobalVar.server.getRouter().post('/upload', upload.array('files'), uploadFiles);

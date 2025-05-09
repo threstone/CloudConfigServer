@@ -35,7 +35,7 @@
         }
 
         input[type="file"] {
-            padding: 8px 15px;
+            padding: 118px 115px;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
@@ -83,19 +83,34 @@
 
 <body>
     <div class="container">
-        <h3>请选择一个游戏 </h3>
-        <select id="gameSelector"></select>
 
-        <h2>创建游戏</h2>
-        <input id="createGameInput"></input>
-        <button type="createGame" id="createGame">创建</button>
+        <div>
+            <h3>游戏名称筛选(仅显示以此名称开头的游戏,不填则显示所有游戏) </h3>
+            <input id="gameFilter"></input>
+            <button id="gameFilterBtn">筛选</button>
+            <h3>请选择一个游戏 </h3>
+            <select id="gameSelector"></select>
+            <br>
+            <br>
+            <label>服务器地址(后端配置,用以通知服务端配置更改)</label>
+            <br>
+            <input id="gameServerUrlInput"></input>
+            <button id="setGameServerUrl">设置服务器地址</button>
+            <div id="setServerUrlResLable"></div>
+        </div>
+
+        <div>
+            <h2>创建游戏</h2>
+            <input id="createGameInput"></input>
+            <button type="createGame" id="createGame">创建</button>
+        </div>
         <div id="createResLable"></div>
 
         <h1>上传配置表</h1>
 
         <form id="uploadForm" enctype="multipart/form-data">
-            <label for="files">Choose Excel files (.xlsx):</label>
-            <input type="file" id="files" name="files" multiple accept=".xlsx">
+            <label for="files">选择或拖动文件到以下区域 (.xlsx):</label>
+            <input type="file" id="files" name="files" multiple accept=".xlsx"></input>
             <button type="submit">上传配置</button>
             <button type="clearConfig" id="clearConfig">清空所选游戏配置</button>
         </form>

@@ -1,9 +1,13 @@
 const gameSelector = document.getElementById('gameSelector');
 const uploadResultEle = document.getElementById('uploadResult');
+const gameServerUrlInput = document.getElementById('gameServerUrlInput');
 const filesEle = document.getElementById('files');
 gameSelector.addEventListener('change', function () {
     uploadResultEle.innerHTML = '';
     filesEle.value = '';
+    gameServerUrlInput.value = games[gameSelector.value] || '';
+    const selectedGame = gameSelector.value;
+    localStorage.setItem('gameSelect', selectedGame);
 });
 
 document.getElementById('uploadForm').addEventListener('submit', function (event) {
@@ -21,7 +25,6 @@ document.getElementById('uploadForm').addEventListener('submit', function (event
         return;
     }
     formData.append('game', selectedGame);
-    localStorage.setItem('gameSelect', selectedGame);
 
     // 循环添加所有选中的文件到 formData
     for (let i = 0; i < files.length; i++) {
@@ -99,6 +102,37 @@ document.getElementById('createGame').addEventListener('click', function (event)
                 gameSelector.appendChild(option);
             } else {
                 document.getElementById('createResLable').innerHTML = '<p style="color: red">创建失败</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+
+document.getElementById('setGameServerUrl').addEventListener('click', function (event) {
+    const selectedGame = gameSelector.value;
+    if (selectedGame.length < 1) {
+        displayErrorMessage('未选中游戏');
+        return;
+    }
+    const gameServerUrlInput = document.getElementById('gameServerUrlInput');
+    const serverUrl = gameServerUrlInput.value;
+    if (serverUrl === '未配置' || serverUrl.length < 1) {
+        return document.getElementById('setServerUrlResLable').innerHTML = '<p style="color: red">请先设置服务器地址</p>';
+    }
+    fetch('/setServerNotifyUrl', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ game: selectedGame, url: serverUrl }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('setServerUrlResLable').innerHTML = '<p style="color: red">设置成功</p>';
+            } else {
+                document.getElementById('setServerUrlResLable').innerHTML = '<p style="color: red">设置成功</p>';
             }
         })
         .catch(error => {

@@ -3,6 +3,7 @@ function initGame(filter) {
     const gameSelector = document.getElementById('gameSelector');
     gameSelector.replaceChildren();
     const gameServerUrlInput = document.getElementById('gameServerUrlInput');
+    gameServerUrlInput.value = '';
     Object.keys(games).forEach((game) => {
         if (filter?.length > 0 && !game.startsWith(filter)) {
             return;

@@ -270,7 +270,7 @@ module.exports = {
         if (!value) return null;
         try {
             let realvalue = value.replace(/[ \[\]]+/g, '').replace(/[ \"]+/g, '').replace(/[ \']+/g, '').replace(/[ \，]+/g, ',');
-            let arr = realvalue.split(',');
+            let arr = realvalue.split('|');
             return JSON.stringify(arr);
         } catch (e) {
             console.log(value, typeof value)

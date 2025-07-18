@@ -213,6 +213,7 @@ module.exports = {
                 break;
             case "any":
             case "json":
+            case "SpineSkeletonData":
             case "object":
                 isObject = true;
                 type = "any";

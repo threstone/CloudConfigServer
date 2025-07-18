@@ -86,7 +86,7 @@ async function writeSheet(sheetName, config) {
         let vIndex = 0;
         for (const key in config.dataList) {
             const value = config.dataList[key];
-            if (isNaN(value.id)) { continue; }
+            if (!value.id) { continue; }
             const tempC = {};
             let hasC = false;
             const tempS = {};

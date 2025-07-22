@@ -75,10 +75,10 @@ module.exports = {
             } else {
                 if (v.startsWith('"')) {
                     obj[splitobj[0]] = v.substring(1, v.length - 1);
-                } else if (v.indexOf(".") >= 0) {
-                    obj[splitobj[0]] = parseFloat(v);
                 } else if (v.indexOf("[") >= 0) {
                     obj[splitobj[0]] = JSON.parse(v);
+                } else if (v.indexOf(".") >= 0) {
+                    obj[splitobj[0]] = parseFloat(v);
                 }
                 else {
                     obj[splitobj[0]] = parseInt(v);

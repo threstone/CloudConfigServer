@@ -42,6 +42,7 @@ async function uploadFiles(ctx: Koa.Context) {
     if (upFiles) {
         try {
             await gen(path.join(excelPath, game, '/'), game, files);
+            ctx.body = { success: true, files };
         } catch (error) {
             ctx.body = { success: false, error: error.message };
         }

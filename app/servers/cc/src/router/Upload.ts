@@ -40,11 +40,14 @@ async function uploadFiles(ctx: Koa.Context) {
 
     const files = upFiles.map((v) => v.originalname);
     if (upFiles) {
-        ctx.body = { success: true, files };
+        try {
+            await gen(path.join(excelPath, game, '/'), game, files);
+        } catch (error) {
+            ctx.body = { success: false, error: error.message };
+        }
     } else {
         ctx.body = { success: false, error: 'No file uploaded.' };
     }
-    await gen(path.join(excelPath, game, '/'), game, files);
     GlobalVar.gameMgr.notifyServer(game);
 }
 

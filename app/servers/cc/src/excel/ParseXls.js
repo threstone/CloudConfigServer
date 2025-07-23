@@ -23,6 +23,9 @@ module.exports = {
                 }
             }
         }
+        if (count !== 0) {
+            throw new Error(`解析失败,大括号数量不匹配 [${configName} => ${varName} => ${value}]`);
+        }
         return { value: arr, isArray: true, type: "any[]" };
     },
     _handleSingleObjValue(realvalue) {
@@ -61,6 +64,12 @@ module.exports = {
                 splitstr.push(objstr.substring(start, i));
                 start = i + 1;
             }
+        }
+        if (countObj !== 0) {
+            throw new Error(`解析失败,大括号数量不匹配 [${objstr}]`);
+        }
+        if (countArray !== 0) {
+            throw new Error(`解析失败,中括号数量不匹配 [${objstr}]`);
         }
         if (start < objstr.length) {
             splitstr.push(objstr.substring(start, objstr.length));

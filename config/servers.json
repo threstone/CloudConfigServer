@@ -13,7 +13,27 @@
                 "nodeId": "cc1",
                 "autuResume": true,
                 "logTrace": true,
-                "logLevel": "all"
+                "logLevel": "all",
+                "port": 10121
+            }
+        ]
+    },
+    "test": {
+        "master": {
+            "ip": "127.0.0.1",
+            "port": 10102,
+            "rpcPorts": [
+                10112
+            ],
+            "isCreateRpcDeclare": true
+        },
+        "cc": [
+            {
+                "nodeId": "cc1",
+                "autuResume": true,
+                "logTrace": true,
+                "logLevel": "all",
+                "port": 10122
             }
         ]
     }

@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { ConfigServer } from './ConfigServer';
-import * as serverConfig from '../config/server.json';
 import { GameMgr } from './GameMgr';
 
 export class GlobalVar {

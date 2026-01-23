@@ -101,8 +101,9 @@ module.exports = class Xls2json {
     getDataList(sheetId, index, configName) {
         let list = [];
         while (true) {
-            let isNext = this.hasNext(sheetId, index);
+            let [isNext, newIndex] = this.hasNext(sheetId, index, 19);
             if (!isNext) break;
+            index = newIndex;
             let arr = this.getSignDataList(sheetId, index);
             let cell = {};
             for (let i = 0; i < this.varList.length; i++) {
@@ -121,12 +122,15 @@ module.exports = class Xls2json {
     }
 
     //是否存在
-    hasNext(sheetId, index) {
+    hasNext(sheetId, index, findStep) {
         let cell = this.workbook.sheet(sheetId).cell(this.cellNames[0] + index);
         if (cell && cell.value() != undefined) {
-            return true;
+            return [true, index];
         }
-        return false;
+        if (findStep <= 0) {
+            return [false, index];
+        }
+        return this.hasNext(sheetId, index + 1, findStep - 1);
     }
 
     getSignDataList(sheetId, index) {

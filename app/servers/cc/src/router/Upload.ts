@@ -61,7 +61,8 @@ async function deleteAll(ctx: Koa.Context) {
     logger.info('清空游戏配置', game);
     try {
         fs.rmSync(path.join(excelPath, game, '/'), { recursive: true });
-        fs.rmSync(path.join(process.cwd(), `./public/${game}`), { recursive: true });
+        fs.rmSync(path.join(process.cwd(), `./public/${game}/client`), { recursive: true });
+        fs.rmSync(path.join(process.cwd(), `./public/${game}/server`), { recursive: true });
     } catch (error) {
         logger.error(error);
     }

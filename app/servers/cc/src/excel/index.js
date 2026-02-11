@@ -2,6 +2,7 @@ const fs = require('fs').promises;
 const crypto = require('crypto')
 const path = require('path');
 const Xls2json = require('./Xls2json');
+const existsSync = require('fs').existsSync;
 
 let serverConfigOutputPath;
 let clientConfigOutputPath;
@@ -13,6 +14,13 @@ export async function gen(excelPath, gameName, files) {
     clientConfigOutputPath = path.join(targetDir, '/client/');
     await mkdirIfNotExist(serverConfigOutputPath);
     await mkdirIfNotExist(clientConfigOutputPath);
+
+    // 将当前GameJsonCfg.json备份
+    await backupGameJsonCfg(
+        clientConfigOutputPath,
+        serverConfigOutputPath,
+        path.join(process.cwd(), `./public/${gameName}/backup/`)
+    );
 
     const tasks = [];
     for (let index = 0; index < files.length; index++) {
@@ -30,9 +38,53 @@ export async function gen(excelPath, gameName, files) {
     mergeAllConfig(clientConfigOutputPath);
 }
 
+async function backupGameJsonCfg(clientConfigOutputPath, serverConfigOutputPath, dirPath) {
+    await mkdirIfNotExist(dirPath);
+    const timestamp = formatDate(new Date());
+
+    const clientTarget = path.join(clientConfigOutputPath, '/GameJsonCfg.json');
+    if (existsSync(clientTarget)) {
+        await fs.copyFile(clientTarget, path.join(dirPath, `client_${timestamp}.json`));
+    }
+
+    const serverTarget = path.join(serverConfigOutputPath, '/GameJsonCfg.json');
+    if (existsSync(serverTarget)) {
+        await fs.copyFile(serverTarget, path.join(dirPath, `server_${timestamp}.json`));
+    }
+
+    // 备份完成后清空备份目录,只保留最新的20个备份
+    const backupFiles = await fs.readdir(dirPath);
+    const jsonFiles = backupFiles.filter(f => f.endsWith('.json'));
+    const maxCount = 20;
+    if (jsonFiles.length > maxCount) {
+        // 按修改时间降序排列
+        const fileStats = await Promise.all(
+            jsonFiles.map(async (f) => {
+                const filePath = path.join(dirPath, f);
+                const stat = await fs.stat(filePath);
+                return { name: f, mtime: stat.mtimeMs };
+            })
+        );
+        fileStats.sort((a, b) => b.mtime - a.mtime);
+        // 删除最旧的文件，只保留最新的maxCount个
+        const toDelete = fileStats.slice(maxCount);
+        await Promise.all(toDelete.map(f => fs.rm(path.join(dirPath, f.name))));
+    }
+}
+
+function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day}_${hours}-${minutes}-${seconds}`;
+}
+
 async function mergeAllConfig(dirPath) {
     const mergeTarget = path.join(dirPath, '/GameJsonCfg.json');
-    if (require('fs').existsSync(mergeTarget)) {
+    if (existsSync(mergeTarget)) {
         await fs.rm(mergeTarget);
     }
     const gameJsonCfg = {};

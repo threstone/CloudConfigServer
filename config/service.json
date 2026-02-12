@@ -1,0 +1,8 @@
+{
+    "prod": {
+        "ssl": {
+            "key": "./ssl/zuiqiangyingyu.net.key",
+            "cert": "./ssl/zuiqiangyingyu.net.pem"
+        }
+    }
+}

@@ -36,5 +36,25 @@
                 "port": 10122
             }
         ]
+    },
+    "prod": {
+        "master": {
+            "ip": "127.0.0.1",
+            "port": 10101,
+            "rpcPorts": [
+                10111
+            ],
+            "isCreateRpcDeclare": true
+        },
+        "cc": [
+            {
+                "nodeId": "cc1",
+                "autuResume": true,
+                "logTrace": false,
+                "logLevel": "all",
+                "consoleLog": false,
+                "port": 10121
+            }
+        ]
     }
 }

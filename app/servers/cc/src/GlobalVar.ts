@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { ConfigServer } from './ConfigServer';
 import { GameMgr } from './GameMgr';
+import * as service from '../../../../config/service.json';
 
 export class GlobalVar {
     static server: ConfigServer;
@@ -9,6 +10,7 @@ export class GlobalVar {
     static gameMgr: GameMgr;
 
     static init() {
+        global.serviceConfig = service[env];
         this.gameMgr = new GameMgr();
 
         this.server = new ConfigServer(serverConfig.port);

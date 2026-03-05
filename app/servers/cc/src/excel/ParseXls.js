@@ -279,7 +279,7 @@ module.exports = {
     checkStringArray(value) {
         if (!value) return null;
         try {
-            let realvalue = value.replace(/[ \[\]]+/g, '').replace(/[ \"]+/g, '').replace(/[ \']+/g, '').replace(/[ \，]+/g, ',');
+            let realvalue = value.replace(/[ \[\]]+/g, '').replace(/[ \"]+/g, '').replace(/[ \']+/g, '');
             let arr = realvalue.split('|');
             return JSON.stringify(arr);
         } catch (e) {
